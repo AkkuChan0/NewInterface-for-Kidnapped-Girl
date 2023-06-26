@@ -66,6 +66,7 @@ init python:
         renpy.display.screen.screens[("main_menu", None)] = renpy.display.screen.screens[("kk_main_menu", None)]
         renpy.display.screen.screens[("game_menu", None)] = renpy.display.screen.screens[("kk_ingame_menu", None)]
         renpy.display.screen.screens[("notify", None)] = renpy.display.screen.screens[("kk_notify", None)]
+        renpy.display.screen.screens[("file_slots", None)] = renpy.display.screen.screens[("kk_file_slots", None)]
         
 
     def kk_d_screens():
@@ -76,6 +77,7 @@ init python:
         renpy.display.screen.screens[("kk_main_menu", None)] = renpy.display.screen.screens[("main_menu", None)]
         renpy.display.screen.screens[("kk_ingame_menu", None)] = renpy.display.screen.screens[("game_menu", None)]
         renpy.display.screen.screens[("kk_notify", None)] = renpy.display.screen.screens[("notify", None)]
+        renpy.display.screen.screens[("kk_file_slots", None)] = renpy.display.screen.screens[("file_slots", None)]
 
     if persistent.kk_interface == True:
         kk_screens()

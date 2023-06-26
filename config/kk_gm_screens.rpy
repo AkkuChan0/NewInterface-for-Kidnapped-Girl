@@ -135,7 +135,6 @@ screen kk_game_load():
 screen kk_game_file_slots(title):
 
 
-
     default page_name_value = FilePageNameInputValue(pattern=_("{} страница"), auto=_("Автосохранения"), quick=_("Быстрые сохранения"))
 
     fixed:
@@ -170,19 +169,23 @@ screen kk_game_file_slots(title):
                 $ slot = i + 1
 
                 button:
-                    action FileAction(slot)
 
-                    has vbox
+                    vbox:
 
-                    add FileScreenshot(slot) xalign 0.5
+                        add FileScreenshot(slot) xalign 0.5
 
-                    text FileTime(slot, format=_("{#file_time}%A, %d %B %Y, %H:%M"), empty=_("Пустой слот")):
-                        style "slot_time_text" color "#fff" font kk_inter_thin_font
+                        text FileTime(slot, format=_("{#file_time}%A, %d %B %Y, %H:%M"), empty=_("Пустой слот")):
+                            style "slot_time_text"
 
-                    text FileSaveName(slot):
-                        style "slot_name_text" color "#fff" font kk_inter_thin_font
+                        text FileSaveName(slot):
+                            style "slot_name_text"
 
                     key "save_delete" action FileDelete(slot)
+
+                    if title == "Сохранить":
+                        action FileSave(slot)
+                    else:
+                        action FileLoad(slot)
 
         ## Кнопки для доступа к другим страницам.
         hbox:

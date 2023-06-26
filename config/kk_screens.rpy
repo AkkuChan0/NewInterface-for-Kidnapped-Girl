@@ -125,20 +125,22 @@ label _kk_start_label:
 
     jump start
 
+
 screen kk_load_menu():
 
     tag menu
+
+    zorder 2
 
     add "gui/game_menu.png"
     add "gui/overlay/game_menu.png"
     text _("ЗАГРУЗИТЬ") xpos 160 ypos 50 color "#fff" font kk_inter_thin_font size 60
     use kk_navigator
     
-    use kk_file_slots(_("Загрузить"))
+    use file_slots(_("Загрузить"))
 
 
 screen kk_file_slots(title):
-
 
 
     default page_name_value = FilePageNameInputValue(pattern=_("{} страница"), auto=_("Автосохранения"), quick=_("Быстрые сохранения"))
@@ -175,19 +177,22 @@ screen kk_file_slots(title):
                 $ slot = i + 1
 
                 button:
-                    action FileAction(slot)
+                    vbox:
 
-                    has vbox
+                        add FileScreenshot(slot) xalign 0.5
 
-                    add FileScreenshot(slot) xalign 0.5
+                        text FileTime(slot, format=_("{#file_time}%A, %d %B %Y, %H:%M"), empty=_("Пустой слот")):
+                            style "slot_time_text"
 
-                    text FileTime(slot, format=_("{#file_time}%A, %d %B %Y, %H:%M"), empty=_("Пустой слот")):
-                        style "slot_time_text"
-
-                    text FileSaveName(slot):
-                        style "slot_name_text"
+                        text FileSaveName(slot):
+                            style "slot_name_text"
 
                     key "save_delete" action FileDelete(slot)
+
+                    if title == "Сохранить":
+                        action FileSave(slot)
+                    else:
+                        action FileLoad(slot)
 
         ## Кнопки для доступа к другим страницам.
         hbox:
