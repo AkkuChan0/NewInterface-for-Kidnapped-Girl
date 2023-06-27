@@ -79,7 +79,7 @@ screen kk_game_preferences:
     textbutton _("Настройки New Interface").upper():
         style "button" text_style "kk_mm_textbutton" text_size 30 text_drop_shadow [ (1, 1), (2, 1) ] text_drop_shadow_color "000"
         xpos 539-86 ypos 907+36
-        action [ShowMenu("kk_interface_settings"), With(dissolve)]
+        action [Hide("menu"), ShowMenu("kk_interface_settings"), With(dissolve)]
 
     textbutton "Language".upper():
         style "button" text_style "kk_mm_textbutton" text_size 30 text_drop_shadow [ (1, 1), (2, 1) ] text_drop_shadow_color "000"
@@ -246,6 +246,10 @@ screen kk_say:
         xpos 302 ypos 1018
         action ShowMenu("kk_game_preferences", transition=dissolve)  
 
+    vbox:
+        area (1045, 867, 552, 22)
+        text kk_get_nowmusic().upper() color "#fff" font kk_inter_thin_font size 24 drop_shadow [ (1, 1), (2, 1) ] drop_shadow_color "000" xcenter 0.5
+
     key "mouseup_3" action ShowMenu("kk_game_preferences", transition=dissolve)
     key "K_ESCAPE" action ShowMenu("kk_game_preferences", transition=dissolve)
 
@@ -281,7 +285,7 @@ screen kk_history():
 
     predict False
     add "kk_nvl_box" xcenter 0.5 ypos 87
-    text _("ИСТОРИЯ") size 60 xpos 325 ypos 134 color "#fff" font kk_inter_thin_font
+    text _("ИСТОРИЯ") size 60 xpos 325 ypos 134 color "#fff" font kk_inter_thin_font drop_shadow [ (1, 1), (2, 1) ] drop_shadow_color "000"
 
     viewport id "history_scroll":
         mousewheel True

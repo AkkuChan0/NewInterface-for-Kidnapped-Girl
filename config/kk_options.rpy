@@ -1,6 +1,7 @@
 default persistent.kk_interface = True
 default persistent.kk_font_size = 36
 default kk_installed = True
+default persistent.kk_nowplay = True
 
 
 style kk_name_text:
@@ -67,7 +68,7 @@ init python:
         renpy.display.screen.screens[("game_menu", None)] = renpy.display.screen.screens[("kk_ingame_menu", None)]
         renpy.display.screen.screens[("notify", None)] = renpy.display.screen.screens[("kk_notify", None)]
         renpy.display.screen.screens[("file_slots", None)] = renpy.display.screen.screens[("kk_file_slots", None)]
-        
+        renpy.display.screen.screens[("confirm", None)] = renpy.display.screen.screens[("kk_confirm", None)]
 
     def kk_d_screens():
         renpy.display.screen.screens[("kk_say", None)] = renpy.display.screen.screens[("say", None)]
@@ -78,6 +79,7 @@ init python:
         renpy.display.screen.screens[("kk_ingame_menu", None)] = renpy.display.screen.screens[("game_menu", None)]
         renpy.display.screen.screens[("kk_notify", None)] = renpy.display.screen.screens[("notify", None)]
         renpy.display.screen.screens[("kk_file_slots", None)] = renpy.display.screen.screens[("file_slots", None)]
+        renpy.display.screen.screens[("kk_confirm", None)] = renpy.display.screen.screens[("confirm", None)]
 
     if persistent.kk_interface == True:
         kk_screens()
@@ -154,6 +156,21 @@ init python:
 
     set_mode_adv()
     reload_names()
+
+
+    def kk_get_nowmusic():
+        if not persistent.kk_nowplay:
+            return ""
+        if not renpy.music.is_playing(channel='music'):
+            return ""
+
+        _temp = renpy.music.get_playing(channel='music')
+        _temp = _temp.rsplit('.', 1)[0]
+        _temp = _temp.split("/")
+        _temp_name = _temp[len(_temp) - 1].split("_")
+        _temp_name2 = ' '.join(_temp_name)
+
+        return "Music: " + _temp_name2
 
 
 ## Helper functions

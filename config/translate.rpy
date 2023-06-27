@@ -53,3 +53,9 @@ translate english strings:
 
     old "ИСТОРИЯ"
     new "HISTORY"
+
+    old "ДА"
+    new "YES"
+
+    old "НЕТ"
+    new "NO"

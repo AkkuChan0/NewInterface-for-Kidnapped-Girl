@@ -2,6 +2,8 @@ screen kk_interface_settings:
 
     tag menu 
 
+    zorder 200
+
     add "kk_bg"
     add "kk_history_box" xpos 26 ypos 26
 
@@ -34,8 +36,19 @@ screen kk_interface_settings:
         text_selected_idle_color "#FF69B4" text_selected_hover_color "#ffffff"
         action [ToggleScreen("kk_information"), With(dissolve)]
 
-    # text "Настройки интерфейса:" style "kk_int_text" xpos 106 ypos 470
-    # text "Размер шрифта:" style "kk_int_text" size 30 xpos 140 ypos 530
+    text "Настройки интерфейса:" style "kk_int_text" xpos 106 ypos 470
+    text "Показывать текущую музыку:" style "kk_int_text" size 30 xpos 140 ypos 530
+    
+    if persistent.kk_nowplay:
+        textbutton _("ДА"):
+            text_idle_color "#3eb5f1" text_hover_color "#03699c" 
+            style "button" text_style "kk_int_button" xpos 510 ypos 525 text_size 30
+            action SetVariable("persistent.kk_nowplay", False), Show("kk_interface_settings")
+    else:
+        textbutton _("НЕТ"):
+            text_idle_color "#d24a43" text_hover_color "#9e0a02" 
+            style "button" text_style "kk_int_button" xpos 510 ypos 525 text_size 30
+            action SetVariable("persistent.kk_nowplay", True), Show("kk_interface_settings")
 
     textbutton "Выход" style "button" text_style "kk_choice_button" xpos 451 ypos 965 action [Hide("menu"), Return(), With(dissolve)]
 
@@ -484,3 +497,43 @@ screen kk_urls_extra():
         textbutton "New Interface in Steam":
             style "button" text_font kk_inter_thin_font
             action OpenURL("https://steamcommunity.com/sharedfiles/filedetails/?id=2648251323")
+
+
+
+screen kk_confirm(message, yes_action, no_action):
+
+    modal True
+
+    zorder 200
+
+    add "kk_confirm_box" xcenter 0.5 ypos 311
+
+    vbox:
+        area(583, 350, 1336-593, 150)
+
+        text _(message):
+            color "#fff" font kk_inter_thin_font size 30
+            drop_shadow [ (1, 1) ] drop_shadow_color "000"
+            xalign 0.5 ycenter 0.5
+
+    hbox:
+        xcenter 0.5 ypos 495 ymaximum 40
+        spacing 45
+
+        textbutton _("ДА"):
+            text_idle_color "#d24a43" text_hover_color "#9e0a02" 
+            text_drop_shadow [ (1, 1) ] text_drop_shadow_color "000"
+            text_font kk_inter_thin_font text_size 36
+                    
+            action [yes_action, With(dissolve)]
+
+        text "/" color "#fff" font kk_inter_thin_font size 36
+
+        textbutton _("НЕТ"):
+            text_idle_color "#3eb5f1" text_hover_color "#03699c" 
+            text_drop_shadow [ (1, 1) ] text_drop_shadow_color "000"
+            text_font kk_inter_thin_font text_size 36
+                    
+            action [no_action, With(dissolve)]
+
+    key "game_menu" action no_action

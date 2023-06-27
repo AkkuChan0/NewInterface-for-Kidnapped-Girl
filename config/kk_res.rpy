@@ -27,7 +27,7 @@ init:
     image kk_choice_button = kk_gui + "GM/choice_button.png"
 
     image kk_notify_box = kk_gui + "GM/notify.png"
-
+    image kk_confirm_box = kk_gui + "confirm_box.png"
 
 # History box
 
